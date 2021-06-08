@@ -16,6 +16,7 @@
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +36,66 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.modal {
+  display: block; /* default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  display: -ms-inline-grid;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  border: 1px solid lightskyblue;
+  border-radius: 25px;
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-content h2{
+  margin-left: 45%;
+}
+
+.modal-content img{
+  margin-left: 30%;
+  border-radius: 25px;
+}
+
+.listCard{
+  background-color: rgb(77, 53, 53);
+  border-radius: 20px;
+  margin: 20px;
+  width: 1000px;
+  /* max-width: 800px; */
+  /* min-width: 800px; */
+  /* min-width:  calc(80px + 2vmin); */
+  min-height: 300px;
+  max-width: 50vw;
 }
