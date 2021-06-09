@@ -50,6 +50,15 @@ function App() {
   const [currentImg, setCurrentImg] = useState('')
   const [currentReviews, setCurrentReviews] = useState([])
 
+  const state = {
+    currentItem : [currentItem, setCurrentItem],
+    productList : [productList, setProductList],
+    showProductList: [showProductList, setShowProductList],
+    showDetails : [showDetails, setShowDetails],
+    currentImg : [currentImg, setCurrentImg],
+    currentReviews : [currentReviews, setCurrentReviews]
+  }
+
   // const [state, setState] = useState({ currentItem: null,
   //                                      productList: initialProducts,
   //                                      showProductList: true,
@@ -58,6 +67,30 @@ function App() {
   //                                      currentReviews: []
   //                                     })
 
+  // useEffect(() => {
+  //    function getThumbnails() {
+
+  //     // fetch("http://18.224.200.47/products/list")
+  //     //   .then(res => res.json())
+  //     //   .then((json) => setProductList(json))
+  //     //   .then((returnedProductList) => )
+
+  //     const thumbnailList = state.productList[0].map((product, index) => {
+  //       fetch("http://18.224.200.47/products/" + product.id + "/styles")
+  //         .then(res => res.json())
+  //         .then(json => json.results[0].photos[0].thumbnail_url)
+
+  //     })
+  //     const newList = state.productList[0]
+  //     console.log(newList);
+  //     thumbnailList.map((img, index) => {
+  //     newList[index].image = img;
+  //     })
+  //     state.setProductList[1](newList);
+  //   }
+  //   getThumbnails();
+  //   //    console.log(state);
+  // }, [])
 
   useEffect(() => {
     function getProductList() {
@@ -99,31 +132,58 @@ function App() {
 
   // console.log('this is the value of state right after the fetch', state)
 
-  if(showProductList){
-    return (
-        <AppContext.Provider value = {{currentImg, currentItem, productList, showProductList, showDetails,currentReviews, clickDetails, clickProductList}}>
-          <div className = "App">
-            <header className = "App-header">
-              <ListFormatter /> 
-            </header>
-          </div>
-        </AppContext.Provider>     
-      );
-  }
-    
-  if(showDetails){
-    return (
-      <AppContext.Provider value = {{currentImg,setCurrentImg, currentItem, productList, showProductList, showDetails,currentReviews, setCurrentReviews, clickDetails, clickProductList}}>
-        <div className = "App">
-          <header className = "App-header">
-            <DetailFormatter /> 
-          </header>
-        </div>
-      </AppContext.Provider>     
-     );
-  }
+  // if(showProductList){
+  //   return (
+  //       <AppContext.Provider value = {{currentImg,setCurrentImg, currentItem, productList, showProductList, showDetails,currentReviews,setCurrentReviews, clickDetails, clickProductList}}>
+  //         <div className = "App">
+          
+  //         <div className = "App">
+  //           <header className = "App-header">
+  //             <ListFormatter /> 
+  //           </header>
+  //         </div>
 
-  
+  //         </div>
+
+  //       </AppContext.Provider>     
+  //     );
+  // }
+    
+  // if(showDetails){
+  //   return (
+  //     <AppContext.Provider value = {{currentImg,setCurrentImg, currentItem, productList, showProductList, showDetails,currentReviews, setCurrentReviews, clickDetails, clickProductList}}>
+  //       <div className = "App">
+  //         <header className = "App-header">
+  //           <DetailFormatter /> 
+  //         </header>
+  //       </div>
+  //     </AppContext.Provider>     
+  //    );
+  // }
+
+  return (
+    //<AppContext.Provider value = {{currentImg, setCurrentImg, currentItem, productList, showProductList, showDetails,currentReviews, setCurrentReviews, clickDetails, clickProductList}}>
+    <AppContext.Provider value = {{state, clickDetails, clickProductList}}>
+      <div className = "App">
+        {/* <div className ="button">
+          <button>test</button>
+        </div> */}
+         <div className = "alwaysOnTop"  >
+           <div className = 'navBar'onClick = {clickProductList}> Navbar 5000, always takes you back where you need 
+           <button>Token Button To Allow for Pressing</button>
+           </div>
+         </div>
+          <header className = "App-header">
+
+            <h1> The greatest page in the worl</h1>
+
+            {showProductList ?  <ListFormatter />  : <DetailFormatter />}
+            
+          </header>
+        
+      </div>
+    </AppContext.Provider>     
+  );
 }
 
 export default App;

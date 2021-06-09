@@ -3,17 +3,18 @@ import {useContext} from 'react';
 
 function ListFormatter(){
 
-    const {productList} = useContext(AppContext);
+    const {state} = useContext(AppContext);
+    const {productList} = state
     const {clickDetails} = useContext(AppContext);
     
 
-    // console.log('this is the state in listformatter' , state)
+    //console.log('this is the state in listformatter' , productList[0])
 
     // let output = state.productList.map(item => <li>  <a onClick = {() =>  {clickDetails(item)}}> {item.name} </a>  </li> )
 
 
 
-    let output = productList.map(item => {
+    let output = productList[0].map(item => {
        return( 
        <div className = 'listCard' onClick={() => {clickDetails(item)}}>
             <h2>{item.name}</h2>

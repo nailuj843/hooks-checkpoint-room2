@@ -1,4 +1,5 @@
 .App {
+  
   text-align: center;
 }
 
@@ -106,4 +107,21 @@
   max-width: 50vw;
   border-radius: 20px;
   outline: red
+}
+
+.alwaysOnTop {
+display: flex;
+position: fixed;
+
+}
+
+.navBar{
+  display: flex;
+  position: fixed;
+  width: 100vw;
+  max-height: 50px;
+  background-color: #00eaff;
+  flex-direction: column;
+  
+  
 }

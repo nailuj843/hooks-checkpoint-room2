@@ -7,8 +7,9 @@ import '../App.css'
 
 function DetailFormatter(){
 
-    const {currentItem} = useContext(AppContext);
-    const {currentImg, setCurrentImg} = useContext(AppContext);
+    const {state} = useContext(AppContext);
+    const {currentItem} = state
+	const {currentImg} = state
     const {clickProductList} = useContext(AppContext);
     
     //const {productList} = state;
@@ -25,12 +26,12 @@ function DetailFormatter(){
 
     
 
-   useEffect(async() => {
-   async function getImage() {
+   useEffect(() => {
+   function getImage() {
        
-    await fetch("http://18.224.200.47/products/" + currentItem.id + "/styles")
+    fetch("http://18.224.200.47/products/" + currentItem[0].id + "/styles")
         .then(res => res.json())
-        .then(json => setCurrentImg(json.results[0].photos[0].thumbnail_url)
+        .then(json => currentImg[1](json.results[0].photos[0].thumbnail_url)
             )
 
    }
@@ -42,11 +43,11 @@ function DetailFormatter(){
                 <a >
 
                     {/* { conditional && <div> Stuff you want to conditionally display </div> } */}
-                    You clicked on {currentItem.name} <br></br>
-                    {currentItem.slogan} <br></br>
-                    {currentItem.description} <br></br>
-                    {currentItem.category} <br></br>
-                    ${currentItem.default_price} <br></br>
+                    You clicked on {currentItem[0].name} <br></br>
+                    {currentItem[0].slogan} <br></br>
+                    {currentItem[0].description} <br></br>
+                    {currentItem[0].category} <br></br>
+                    ${currentItem[0].default_price} <br></br>
 
                     <ul>
                     <ReviewFormatter />
