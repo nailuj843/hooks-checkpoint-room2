@@ -41,50 +41,67 @@ let initialProducts = [
 function App() {
  // let productList = getProductList()
  
+ // reStructred the state to have independent values
 
-  const [state, setState] = useState({ currentItem: null,
-                                       productList: initialProducts,
-                                       showProductList: true,
-                                       showDetails: false,
-                                       
-                                      })
-// useEffect(() => {
+  const [currentItem, setCurrentItem] = useState(null)
+  const [productList, setProductList] = useState(initialProducts)
+  const [showProductList, setShowProductList] = useState(true)
+  const [showDetails, setShowDetails] = useState(false)
+  const [currentImg, setCurrentImg] = useState('')
+  const [currentReviews, setCurrentReviews] = useState([])
+
+  // const [state, setState] = useState({ currentItem: null,
+  //                                      productList: initialProducts,
+  //                                      showProductList: true,
+  //                                      showDetails: false,
+  //                                      currentImg: '',
+  //                                      currentReviews: []
+  //                                     })
+
 
   useEffect(() => {
     function getProductList() {
       fetch("http://18.224.200.47/products/list")
         .then(res => res.json())
-        .then((json) => setState({...state, productList: json}))
+        .then((json) => setProductList(json))
         
     }
     getProductList();
   }, [])
-  // async function getProductList(){
-  //   let res = await fetch("http://18.224.200.47/products/list");
-  //   let json = await res.json();
-  //   console.log('PINGING THE SERVER');
-  //   //let productList = await json[0].url;
-  //   setState({...state, productList: json})
-  //   return json;
-  // }  
-  // getProductList()
-// }, [state])                          
+                         
 
   function clickDetails(clickedItem){
-    console.log(state);
-    setState({...state, showProductList: false, showDetails: true, currentItem: clickedItem})
+    // old nested state change
+   // setState({...state, showProductList: false, showDetails: true, currentItem: clickedItem})
+
+    // new separete state change
+    setShowProductList(false)
+    setShowDetails(true)
+    setCurrentItem(clickedItem)
   }
 
   function clickProductList(e){
-    setState({...state, showProductList: true, showDetails: false})
+    //setState({...state, showProductList: true, showDetails: false, currentImg: ''})
+
+    setShowProductList(true)
+    setShowDetails(false)
+    setCurrentImg('')
   }
  
 
+  // const [state, setState] = useState({ currentItem: null,
+  //                                      productList: initialProducts,
+  //                                      showProductList: true,
+  //                                      showDetails: false,
+  //                                      currentImg: '',
+  //                                      currentReviews: []
+  //                                     })
+
   // console.log('this is the value of state right after the fetch', state)
 
-  if(state.showProductList){
+  if(showProductList){
     return (
-        <AppContext.Provider value = {{state, clickDetails, clickProductList, setState}}>
+        <AppContext.Provider value = {{currentImg, currentItem, productList, showProductList, showDetails,currentReviews, clickDetails, clickProductList}}>
           <div className = "App">
             <header className = "App-header">
               <ListFormatter /> 
@@ -94,9 +111,9 @@ function App() {
       );
   }
     
-  if(state.showDetails){
+  if(showDetails){
     return (
-      <AppContext.Provider value = {{state, clickDetails, clickProductList, setState}}>
+      <AppContext.Provider value = {{currentImg,setCurrentImg, currentItem, productList, showProductList, showDetails,currentReviews, setCurrentReviews, clickDetails, clickProductList}}>
         <div className = "App">
           <header className = "App-header">
             <DetailFormatter /> 
@@ -128,5 +145,11 @@ and clicking it again closes the photo
   allow for this eventuality with good conditional rendering).
 
 
+  Advanced Content
+
+Add a nav bar and button that will also close the photo and/or display the product list again.
+Add miniature thumbnail photo to each product card
+Add Review score to each product card (Reviews data service)
+Add a display for Question/Answers to each product that is visible only when the photo is enlarged (Questions data service)
 
 */

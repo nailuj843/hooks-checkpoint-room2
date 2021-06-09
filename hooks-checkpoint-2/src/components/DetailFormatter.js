@@ -1,12 +1,14 @@
 import AppContext from '../Context/AppContext'
 import {useContext, useEffect} from 'react';
-
+import ReviewFormatter from './ReviewFormatter'
+//import './../App.css';
+import '../App.css'
 
 
 function DetailFormatter(){
 
-    const {state} = useContext(AppContext);
-    const {setState} = useContext(AppContext);
+    const {currentItem} = useContext(AppContext);
+    const {currentImg, setCurrentImg} = useContext(AppContext);
     const {clickProductList} = useContext(AppContext);
     
     //const {productList} = state;
@@ -18,34 +20,41 @@ function DetailFormatter(){
     /*
     async function get
     */
-   useEffect(() => {
-   function getImage() {
+
+    
+
+    
+
+   useEffect(async() => {
+   async function getImage() {
        
-    fetch("http://18.224.200.47/products/" + state.currentItem.id + "/styles")
+    await fetch("http://18.224.200.47/products/" + currentItem.id + "/styles")
         .then(res => res.json())
-        .then(json => {
-            
-            setState({...state, currentImg: json.results[0].photos[0].thumbnail_url})
-            
-        })
+        .then(json => setCurrentImg(json.results[0].photos[0].thumbnail_url)
+            )
 
    }
    getImage();
 //    console.log(state);
 }, [])
 
-    return  <p> 
-                <a onClick = {(e) => clickProductList(e)}>
+    return  <div className='detailCard' onClick = {(e) => clickProductList(e)}> 
+                <a >
 
                     {/* { conditional && <div> Stuff you want to conditionally display </div> } */}
-                    You clicked on {state.currentItem.name} <br></br>
-                    {state.currentItem.slogan} <br></br>
-                    {state.currentItem.description} <br></br>
-                    {state.currentItem.category} <br></br>
-                    ${state.currentItem.default_price} <br></br>
-                    { <img src={state.currentImg} alt="would have been a nice image"/>}
+                    You clicked on {currentItem.name} <br></br>
+                    {currentItem.slogan} <br></br>
+                    {currentItem.description} <br></br>
+                    {currentItem.category} <br></br>
+                    ${currentItem.default_price} <br></br>
+
+                    <ul>
+                    <ReviewFormatter />
+                    </ul>
+
+                    {<img src={currentImg} alt="would have been a nice image"/>}
                 </a>
-            </p>
+            </div>
         
 }
 
